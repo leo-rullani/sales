@@ -8,20 +8,25 @@ class Customer(models.Model):
     newsletter_abo = models.BooleanField(default=True)
     email_address = models.CharField(max_length=30, blank=True, default="")
     account = models.FloatField(blank=True, null=True)
-    # one to many-order
 
 class Product(models.Model):
     name = models.CharField(max_length=30)
     price = models.FloatField()
-    # many-to-many-Order
 
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)    # Wenn wir Customer löschen, werden auch Order gelöscht.
-    products = models.ManyToManyField(Product)
-    # may-to-one Customer
-    # one-to-one Bill
-    
 class Bill(models.Model): 
     total_amount = models.FloatField()
     is_paid = models.BooleanField(default=False)
-    # one-to-one Order
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through="Producttype")
+    bill = models.OneToOneField(Bill, on_delete=models.CASCADE)
+
+class Producttype(models.Model): 
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    type_name = models.CharField(max_length=300)
+
+    class Meta:
+        verbose_name = "Producttype"
+        verbose_name_plural = "Producttypes"
