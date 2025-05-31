@@ -9,9 +9,17 @@ class Customer(models.Model):
     email_address = models.CharField(max_length=30, blank=True, default="")
     account = models.FloatField(blank=True, null=True)
     
+class Meta: 
+    verbose_name="Customer"
+    verbose_name_plural="Customers"
+    ordering=["first_name"]
+    
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
+    
+    def save(self):
+        self.account = 100000
+        return super().save()
 class Product(models.Model):
     name = models.CharField(max_length=30)
     price = models.FloatField()
