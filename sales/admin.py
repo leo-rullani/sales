@@ -9,23 +9,23 @@ class CustomerAdmin(admin.ModelAdmin):
     
     readonly_fields =["account"]
     
-    prepopulated_fields={"slug":["first_name", "last_name"]}
+    # prepopulated_fields={"slug":["first_name", "last_name"]}
     
-    fieldsets = [
-        (
-            None,
-            {
-                "fields": ["first_name", "last_name", "account"],
-            },
-        ),
-        (
-            "Advanced options",
-            {
-                "classes": ["collapse"],
-                "fields": ["newsletter_abo", "slug"],
-            },
-        ),
-    ]
+#     fieldsets = [
+#         (
+#             None,
+#             {
+#                 "fields": ["first_name", "last_name", "account"],
+#             },
+#         ),
+#         (
+#             "Advanced options",
+#             {
+#                 "classes": ["collapse"],
+#                 "fields": ["newsletter_abo", "slug"],
+#             },
+#         ),
+#     ]
 
 
 admin.site.register(Customer, CustomerAdmin)
